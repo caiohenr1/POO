@@ -37,13 +37,9 @@ public class ContaBanco {
         } else {
             System.out.println("TIPO CONTA É INVÁLIDO, CONTA NÃO CRIADA!");
         }
-
-
     }
 
-
     public void fecharConta() {
-        this.getSaldoCliente();
         if (this.saldoCliente == 0 ) {
             this.setStatus(false);
             System.out.println(String.format("""
@@ -66,11 +62,10 @@ public class ContaBanco {
         }
 
     }
-    public void depositar(double valorDepositado) {
+    public void depositar(float valorDepositado) {
 
-        this.isStatus();
         if (this.status) {
-            this.setSaldoCliente((float) (saldoCliente + valorDepositado));
+            this.setSaldoCliente(this.getSaldoCliente() + valorDepositado);
         System.out.println(String.format("""
                 *** DEPÓSITO REALIZADO COM SUCESSO ***
                 NOVO SALDO: %.2f
@@ -83,11 +78,11 @@ public class ContaBanco {
 
 //
     }
-    public void sacar( double saque) {
+    public void sacar( float saque) {
 
         this.isStatus();
         if (this.status && this.saldoCliente >= saque) {
-            this.setSaldoCliente((float) (this.saldoCliente - saque));
+            this.setSaldoCliente(this.getSaldoCliente() - saque);
             System.out.println(String.format("""
                     SAQUE REALIZADO COM SUCESSO!
                     NOVO SALDO: %.2f
@@ -109,14 +104,14 @@ public class ContaBanco {
     public void pagarMensalidade() {
 
         this.getSaldoCliente();
-        if (this.tipoConta.equalsIgnoreCase("CC") && this.saldoCliente >= 12) {
-            this.setSaldoCliente(this.saldoCliente - 12);
+        if (this.getTipoConta().equalsIgnoreCase("CC") && this.getSaldoCliente() >= 12) {
+            this.setSaldoCliente(this.getSaldoCliente() - 12);
             System.out.println(String.format("""
                     MENSALIDADE PAGA COM SUCESSO
                     NOVO SALDO: %.2f
                     """, this.getSaldoCliente()));
-        } else if (this.tipoConta.equalsIgnoreCase("CP") && this.saldoCliente >= 20) {
-            this.setSaldoCliente(this.saldoCliente - 20);
+        } else if (this.getTipoConta().equalsIgnoreCase("CP") && this.getSaldoCliente() >= 20) {
+            this.setSaldoCliente(this.getSaldoCliente() - 20);
             System.out.println(String.format("""
                     MENSALIDADE PAGA COM SUCESSO
                     NOVO SALDO: %.2f
